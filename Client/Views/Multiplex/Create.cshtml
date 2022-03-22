@@ -1,0 +1,134 @@
+﻿@model DataAccessLayer.ViewModel.MultiplexRegisterViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Multiplex</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Mobile" class="control-label"></label>
+                <input asp-for="Mobile" class="form-control" />
+                <span asp-validation-for="Mobile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Screens" class="control-label">Screen</label>
+                <button type="button" id="btnAdd" class="btn btn-success">Add</button>
+                <div id="screens"></div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+    $(document).ready(() => {
+        var cnt = 0;
+
+        $("#btnAdd").click(() => {
+            cnt++;
+            var divId = "divScreen" + cnt.toString();
+            var div = $("<div></div>").addClass("form-group").attr("id", divId);
+
+            var txtName = "txtScreen" + cnt.toString();
+            var textBox = $("<input />").attr("type", "textbox").attr("id", txtName);
+            div.append(textBox);
+
+            var btnId = "btnRemove" + cnt.toString();
+            var button = $("<input />").attr("type", "button").attr("value", "Remove").addClass("btn btn-danger").attr("id", btnId)
+                .attr("onclick", "removeMe(" + cnt + ")");
+            div.append(button);
+            console.log(div);
+            $("#screens").append(div);
+        });
+
+        $("form").submit(function (event) {
+            event.preventDefault();
+            console.log("Form To be submit")
+
+            var data = new Array();
+            $('#screens').children('div').each(function () {
+                var a = $(this).find('input').val()
+                data.push(a);
+            });
+
+            console.log(data)
+
+            var objToSend = {
+
+                Name: $("#Name").val(),
+                Mobile: $("#Mobile").val(),
+                Address: $("#Address").val(),
+                Email: $("#Email").val(),
+                Password: $("#Password").val(),
+                Screens: data
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Multiplex/Create",
+                data: objToSend,
+
+                success: function (r) {
+                    console.log(r);
+                    window.location.href = "/Multiplex/Index";
+                },
+                error: function(req){
+                    window.location.href = "/Multiplex/Create";
+                }
+            });
+
+            console.log("Submitted");
+
+        });
+
+    })
+    function removeMe(cnt) {
+
+        var divId = "#divScreen" + cnt.toString();
+        $(divId).remove();
+    }
+</script>

@@ -1,0 +1,10 @@
+F:\Bhavya\Multiplex\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.deps.json
+F:\Bhavya\Multiplex\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.dll
+F:\Bhavya\Multiplex\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.pdb
+F:\Bhavya\Multiplex\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+F:\Bhavya\Multiplex\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfoInputs.cache
+F:\Bhavya\Multiplex\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfo.cs
+F:\Bhavya\Multiplex\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.csproj.CoreCompileInputs.cache
+F:\Bhavya\Multiplex\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.dll
+F:\Bhavya\Multiplex\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.pdb
+F:\Bhavya\Multiplex\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.csproj.AssemblyReference.cache
