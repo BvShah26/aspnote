@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer.Models;
 using DataAccessLayer.ViewModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MultiplexApis.Data;
@@ -15,10 +16,12 @@ namespace MultiplexApis.Controllers
     public class MultiplexController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public MultiplexController(ApplicationDBContext context)
+        public MultiplexController(ApplicationDBContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/<MultiplexController>
@@ -62,6 +65,18 @@ namespace MultiplexApis.Controllers
             _context.Multiplex.Add(multiplex);
             _context.SaveChanges();
 
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = multiplex.Email,
+                UserName = multiplex.Email,
+                PhoneNumber = multiplex.Mobile.ToString(),
+            };
+
+            IdentityResult identityResult = _userManager.CreateAsync(user, obj.Password).Result;
+            if (identityResult.Succeeded)
+            {
+                _userManager.AddToRoleAsync(user, "MultiplexAdmin").Wait();
+            }
             return Ok();
         }
 
@@ -75,6 +90,7 @@ namespace MultiplexApis.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }
